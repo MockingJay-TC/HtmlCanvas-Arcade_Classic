@@ -13,6 +13,9 @@
     <canvas id="gameCanvas" width="1000" height="600"></canvas>
 
     <script>
+
+let duration = Number(prompt("Enter the Number of Tries: "));
+
         var canvas;
         var canvasContext;
         var ballX = 50;
@@ -22,7 +25,7 @@
 
         var player1Score = 0;
         var player2Score = 0;
-        const WINNING_SCORE = 3;
+        const WINNING_SCORE = duration;
 
         var showingWinScreen = false;
 
