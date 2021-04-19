@@ -10,7 +10,7 @@
 
 <body>
 
-    <canvas id="gameCanvas" width="1000" height="600"></canvas>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
 
     <script>
 
@@ -143,18 +143,49 @@
                 colorRect(canvas.width / 2 - 1, i, 2, 20, 'white');
             }
         }
+        function drawProgressBarRed() {
+            colorRect(100, 550, 2, 20, "red");
+            colorRect(300, 550, 2, 20, "red");
+            for (var i = 550; i < 570; i += 18) {
+                if (i > 551 && i < 569) {
+                    //bottom line
+                    colorRect(100, i, 200, 2, "red");
+                    continue;
+                }
+                //top line
+                colorRect(100, i, 200, 2, "red");
+            }
+            colorRect(100, 550, player1Score * (200 / WINNING_SCORE), 20, "red");
+        }
+        function drawProgressBarBlack() {
+            colorRect(500, 550, 2, 20, "black");
+            colorRect(700, 550, 2, 20, "black");
+            for (var i = 550; i < 570; i += 18) {
+                if (i > 551 && i < 569) {
+                    //bottom line
+                    colorRect(500, i, 200, 2, "black");
+                    continue;
+                }
+                //top line
+                colorRect(500, i, 200, 2, "black");
+            }
+            colorRect(700, 550, -player2Score * (200 / WINNING_SCORE), 20, "black");
+        }
 
         function drawEverything() {
             // next line blanks out the screen with black
-            colorRect(0, 0, canvas.width, canvas.height, 'tomato');
+            colorRect(0, 0, canvas.width, canvas.height, 'cadetblue');
 
             if (showingWinScreen) {
                 canvasContext.fillStyle = 'white';
 
+
                 if (player1Score >= WINNING_SCORE) {
                     canvasContext.fillText("Left Player Won", 450, 200);
+                    drawProgressBarRed();
                 } else if (player2Score >= WINNING_SCORE) {
                     canvasContext.fillText("Right Player Won", 450, 200);
+                    drawProgressBarBlack();
                 }
 
                 canvasContext.fillText("click to continue", 450, 500);
@@ -163,11 +194,16 @@
 
             drawNet();
 
+            drawProgressBarBlack();
+            drawProgressBarRed();
+
+
+
             // this is left player paddle
-            colorRect(0, paddle1Y, PADDLE_THICKNESS, PADDLE_HEIGHT, 'white');
+            colorRect(0, paddle1Y, PADDLE_THICKNESS, PADDLE_HEIGHT, 'tomato');
 
             // this is right computer paddle
-            colorRect(canvas.width - PADDLE_THICKNESS, paddle2Y, PADDLE_THICKNESS, PADDLE_HEIGHT, 'white');
+            colorRect(canvas.width - PADDLE_THICKNESS, paddle2Y, PADDLE_THICKNESS, PADDLE_HEIGHT, 'black');
 
             // next line draws the ball
             colorCircle(ballX, ballY, 10, 'white');
